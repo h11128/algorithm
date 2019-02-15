@@ -22,6 +22,22 @@ class Graph:
             if self.s[0] == self.s[i] and v!= self.s[i+1] and len(self.s)>1:
                 print("cycle:",self.s)
                 self.s = []
+    def dfs2(self,v,visited,parent):
+        visited[v] = 1
+        for i in self.graph[v]:
+            if visited[i] == 0:
+                if self.dfs2(i,visited,v):
+                    return True
+            elif i != parent and visited[i] == visited[v] :
+                return True
+        return False
+    def isCyclic(self):
+        visited = [0]*(self.num)
+        for v in range(self.num):
+            if visited[v] ==0:
+                if self.dfs2(v,visited,-1):
+                    return True
+        return False
     def dfs1(self,v,visited):
         visited[v] = 1
         print(visited)
